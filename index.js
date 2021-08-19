@@ -1,8 +1,8 @@
 
 const express = require('express')
 const app = express()
-
 const Datastore = require('nedb')
+const fetch = require('node-fetch')
 
 
 app.listen(3000, () => console.log('listening at 3000'))
@@ -37,3 +37,26 @@ app.get('/api', (request, response) => {
 })
 
 
+// Here we are creating a proxy server to Dark Sky API
+// In addition we are making a call to openaq for air quality data 
+app.get('/weather/:latlong', async (request, response) => {
+    console.log(request.params)
+    const latlong = request.params.latlong.split(',')
+    console.log(latlong)
+    const lat = latlong[0]
+    const long = latlong[1]
+    const weatherURL = 
+    const weatherResponse = await fetch(weatherURL)
+    const weatherJSON = await weatherResponse.json()
+
+    const aqURL = `https://api.openaq.org/v2/measurements?coordinates=${lat},${long}`
+    console.log(aqURL)
+    const aqResponse = await fetch(aqURL)
+    const aqJSON = await aqResponse.json()
+
+    const data = {
+        weather: weatherJSON,
+        airQuality: aqJSON
+    }
+    response.json(data)
+})
