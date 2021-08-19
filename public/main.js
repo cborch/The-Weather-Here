@@ -3,21 +3,6 @@
 console.log("called main.js")
 
 let lat, long;
-const button = document.getElementById('checkIn');
-button.addEventListener('click', async event => {
-
-    const data = { lat, long };
-    const options = {
-    method: 'POST',
-    headers: {
-        'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(data)
-    };
-    const response = await fetch('/api', options);
-    const json = await response.json();
-    console.log(json);
-});
 
 if ('geolocation' in navigator) {
     console.log('geolocation available');
@@ -44,6 +29,22 @@ if ('geolocation' in navigator) {
             const aqDate = new Date(aq['date']['local'])
             document.getElementById('aqDate').textContent = aqDate.toDateString()
             console.log(json)
+
+
+            // Send to database 
+            const data = { lat, long, weather, aq };
+            const options = {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+            };
+            const dbResponse = await fetch('/api', options);
+            const dbJSON = await dbResponse.json();
+            console.log(dbJSON);
+
+
         } catch (error) {
             console.log('Something went wrong')
         }

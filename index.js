@@ -45,7 +45,7 @@ app.get('/weather/:latlong', async (request, response) => {
     console.log(latlong)
     const lat = latlong[0]
     const long = latlong[1]
-    const weatherURL = 
+    const weatherURL = `https://api.darksky.net/forecast/891b5c2f963fafc10d22cc229a435527/${lat},${long}`
     const weatherResponse = await fetch(weatherURL)
     const weatherJSON = await weatherResponse.json()
 
