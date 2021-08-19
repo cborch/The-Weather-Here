@@ -3,6 +3,7 @@ const express = require('express')
 const app = express()
 const Datastore = require('nedb')
 const fetch = require('node-fetch')
+require('dotenv').config()
 
 
 app.listen(3000, () => console.log('listening at 3000'))
@@ -45,7 +46,8 @@ app.get('/weather/:latlong', async (request, response) => {
     console.log(latlong)
     const lat = latlong[0]
     const long = latlong[1]
-    const weatherURL = `https://api.darksky.net/forecast/891b5c2f963fafc10d22cc229a435527/${lat},${long}`
+    const apiKey = process.env.API_KEY
+    const weatherURL = `https://api.darksky.net/forecast/${apiKey}/${lat},${long}`
     const weatherResponse = await fetch(weatherURL)
     const weatherJSON = await weatherResponse.json()
 

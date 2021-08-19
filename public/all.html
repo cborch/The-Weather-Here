@@ -4,31 +4,40 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" type="text/css" href="style.css" />
     <title>The Weather Here</title>
 </head>
 <body>
     <h1>The Weather Here</h1>
-    <p>
-        <a href="http://localhost:3000/">Check In</a> |
-        <a href="http://localhost:3000/all.html">View Check Ins</a>
-    </p>
+    
+    <a href="http://localhost:3000/">Check In</a> |
+    <a href="http://localhost:3000/all.html">View Check Ins</a>
+    
 
 <script>
     getData()
     async function getData() {
         const response = await fetch('/api')
         const data = await response.json()
+        console.log(data)
         
         data.forEach(element => {
             const root = document.createElement('p')
             const geo = document.createElement('div')
             const timestamp = document.createElement('div')
+            const weatherConditions = document.createElement('div')
+            const aqCondition = document.createElement('div')
+
+
+            weatherConditions.textContent = element['weather']['summary'] + ', ' + element['weather']['temperature'] + ' degrees'
+            aqCondition.textContent = element['aq']['parameter'] + ': ' + element['aq']['value'] + ' ' + element['aq']['unit']
+
             
             geo.textContent = `${element.lat}°, ${element.long}°`
             let d = new Date(element.timestamp)
             timestamp.textContent = d.toDateString()
 
-            root.append(geo, timestamp)
+            root.append(geo, weatherConditions, aqCondition, timestamp)
             document.body.append(root)
         });
     }
