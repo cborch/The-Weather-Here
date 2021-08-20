@@ -25,7 +25,9 @@ if ('geolocation' in navigator) {
         
         try {
             console.log('Entered try')
-            const aq = json['airQuality']['results'][2]
+            console.log(json['airQuality']['results'][0])
+            aq = json['airQuality']['results'][0]
+            console.log(aq)
             document.getElementById('aqParameter').textContent = aq['parameter']
             document.getElementById('aqValue').textContent = aq['value']
             document.getElementById('aqUnits').textContent = aq['unit']
@@ -33,10 +35,11 @@ if ('geolocation' in navigator) {
             document.getElementById('aqDate').textContent = aqDate.toDateString()
         } catch (error) {
             console.log('Something went wrong')
-            aq = -1
+            aq = { value: -1 }
         }
 
         // Send to database 
+        console.log(aq)
         const data = { lat, long, weather, aq };
         const options = {
             method: 'POST',

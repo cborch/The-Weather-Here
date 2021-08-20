@@ -30,7 +30,7 @@
 
 
             weatherConditions.textContent = element['weather']['summary'] + ', ' + element['weather']['temperature'] + ' degrees'
-            if (element['aq'] < 0) {
+            if (element.aq.value < 0) {
                 aqCondition.textContent = 'No air quality'
             } else {
                 aqCondition.textContent = element['aq']['parameter'] + ': ' + element['aq']['value'] + ' ' + element['aq']['unit']
