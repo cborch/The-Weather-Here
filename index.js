@@ -16,7 +16,7 @@ const database = new Datastore('database.db')
 database.loadDatabase()
 
 
-app.post('/api', (request, response) => {
+app.post('/api2', (request, response) => {
     //console.log(request.body)
     const data = request.body
     const timestamp = Date.now()
