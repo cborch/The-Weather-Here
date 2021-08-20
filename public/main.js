@@ -33,25 +33,29 @@ if ('geolocation' in navigator) {
             console.log('about to try to post data')
 
 
-            // Send to database 
-            const data = { lat, long, weather, aq };
-            const options = {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(data)
-            };
-            const dbResponse = await fetch('/api', options);
-            const dbJSON = await dbResponse.json();
-            console.log('tried to post data')
-            console.log(dbJSON);
-            console.log('tried to post')
+    
 
 
         } catch (error) {
             console.log('Something went wrong')
+            aq = 'No air quality'
         }
+
+        // Send to database 
+        const data = { lat, long, weather, aq };
+        const options = {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        };
+        const dbResponse = await fetch('/api', options);
+        const dbJSON = await dbResponse.json();
+        console.log('tried to post data')
+        console.log(dbJSON);
+        console.log('tried to post')
+
     });
 } else {
     console.log('geolocation not available');
