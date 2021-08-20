@@ -30,7 +30,12 @@
 
 
             weatherConditions.textContent = element['weather']['summary'] + ', ' + element['weather']['temperature'] + ' degrees'
-            aqCondition.textContent = element['aq']['parameter'] + ': ' + element['aq']['value'] + ' ' + element['aq']['unit']
+            if (element['aq'] < 0) {
+                aqCondition.textContent = element['aq']['parameter'] + ': ' + element['aq']['value'] + ' ' + element['aq']['unit']
+            } else {
+                aqCondition.textContent = 'No air quality'
+            }
+            
 
             
             geo.textContent = `${element.lat}°, ${element.long}°`
@@ -42,7 +47,6 @@
         });
     }
 </script>
-<script src="main.js"></script>
 
 </body>
 </html>
