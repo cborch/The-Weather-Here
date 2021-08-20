@@ -16,7 +16,7 @@ const database = new Datastore('database.db')
 database.loadDatabase()
 
 
-app.post('/api1', (request, response) => {
+app.post('/api', (request, response) => {
     //console.log(request.body)
     const data = request.body
     const timestamp = Date.now()
@@ -25,7 +25,7 @@ app.post('/api1', (request, response) => {
     response.json(data)
 })
 
-app.get('/api', (request, response) => {
+app.get('/apiGet', (request, response) => {
     database.find({}, (err, data) => {
         if (err) {
             response.sendStatus()
