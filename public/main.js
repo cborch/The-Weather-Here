@@ -34,15 +34,16 @@ if ('geolocation' in navigator) {
             // Send to database 
             const data = { lat, long, weather, aq };
             const options = {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(data)
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
             };
             const dbResponse = await fetch('/api', options);
             const dbJSON = await dbResponse.json();
             console.log(dbJSON);
+            console.log('tried to post')
 
 
         } catch (error) {
